@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/new-gothic-style');
+
+:root {
+	--color-bg: #FFFFFF;
+	--color-fg: #030303;
+	--color-pr: #155DD9;
+}
+
+.darkmode {
+	--color-bg: #1E1E1E;
+	--color-fg: #FFFFFF;
+	--color-pr: #F7C9A0;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+	font-family: "Roboto Mono", monospace;
+	font-size: 22px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.content {
+	width: 60%;
+	margin: auto;
+}
+
+h1 {
+	font-size: 3rem;
+	color: var(--color-pr);
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+.about-me {
+	margin-bottom: 1.5rem;
+	font-size: 1.3rem;
+}
+
+hr {
+	border: none;
+	border-bottom: 1px solid #333;
+	margin: 1.5rem 0;
+}
+
+.thing {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%;
+	background-color: var(--color-pr);
+}
+
+.information,
+.link {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.information {
+	margin-top: 20px;
+}
+
+.icon {
+	cursor: pointer;
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	padding: 0;
+	bottom: 80px;
+	right: 20px;
+	border: 1px solid var(--color-fg);
+	transition: all var(--global-transition-time) ease-in-out;
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+}
+
+.icon:last-child {
+	cursor: pointer;
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	padding: 0;
+	bottom: 140px;
+	right: 20px;
+	border: 1px solid var(--color-fg);
+	transition: all var(--global-transition-time) ease-in-out;
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+}
+
+#theme-switcher {
+	cursor: pointer;
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	padding: 0;
+	bottom: 20px;
+	right: 20px;
+	border: 1px solid var(--color-fg);
+	transition: all var(--global-transition-time) ease-in-out;
+	background-color: var(--color-bg);
+	color: var(--color-fg);
+}
+
+#theme-switcher svg {
+	fill: var(--color-fg);
+}
+
+#theme-switcher svg:last-child {
+	display: none;
+}
+
+.darkmode #theme-switcher svg:first-child {
+	display: none;
+}
+
+.darkmode #theme-switcher svg:last-child {
+	display: block;
+}
+
+#user {
+	cursor: pointer;
+	font-family: 'New Gothic Style', sans-serif;
+	font-size: 4rem;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	color: var(--color-pr);
+}
+
+::selection {
+	background-color: var(--color-pr);
+	color: var(--color-bg);
+}
+
+::-moz-selection {
+	background-color: var(--color-pr);
+	color: var(--color-bg);
+}
+
+a {
+	text-decoration: none;
+	color: var(--color-fg);
+}
+
+a:visited {
+	color: var(--color-fg);
+}
+
+a:hover,
+a:active {
+	color: var(--color-pr);
+}
