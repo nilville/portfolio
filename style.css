@@ -23,7 +23,8 @@ body {
 	background-color: var(--color-bg);
 	color: var(--color-fg);
 	font-family: "Roboto Mono", monospace;
-	font-size: 22px;
+	font-size: 18px;
+	line-height: 1.6;
 }
 
 .container {
@@ -31,49 +32,35 @@ body {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
+	min-height: 100vh;
+	padding: 2rem;
 }
 
 .content {
-	width: 60%;
-	margin: auto;
+	width: min(60%, 1200px);
+  	margin: 0 auto;
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: clamp(2.5rem, 5vw, 3.5rem);
 	color: var(--color-pr);
-	margin-bottom: 1.5rem;
+	margin-bottom: 2rem;
 	text-align: center;
+	letter-spacing: -1px;
 }
 
 .about-me {
-	margin-bottom: 1.5rem;
-	font-size: 1.3rem;
+	margin-bottom: 2rem;
+	font-size: 1.2rem;
+	line-height: 1.8;
+	opacity: 0.9;
 }
 
 hr {
 	border: none;
-	border-bottom: 1px solid #333;
-	margin: 1.5rem 0;
-}
-
-.thing {
-	height: 30px;
-	width: 30px;
-	border-radius: 50%;
-	background-color: var(--color-pr);
-}
-
-.information,
-.link {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-.information {
-	margin-top: 20px;
+	border-bottom: 1px solid var(--color-fg);
+	opacity: 0.2;
+	margin: 2rem 0;
 }
 
 .icon {
@@ -89,7 +76,6 @@ hr {
 	bottom: 80px;
 	right: 20px;
 	border: 1px solid var(--color-fg);
-	transition: all var(--global-transition-time) ease-in-out;
 	background-color: var(--color-bg);
 	color: var(--color-fg);
 }
@@ -149,11 +135,16 @@ hr {
 #user {
 	cursor: pointer;
 	font-family: 'New Gothic Style', sans-serif;
-	font-size: 4rem;
+	font-size: clamp(3rem, 6vw, 4rem);
 	position: fixed;
 	left: 20px;
 	top: 20px;
 	color: var(--color-pr);
+	opacity: 0.9;
+}
+
+#user:hover {
+	opacity: 1;
 }
 
 ::selection {
@@ -178,4 +169,14 @@ a:visited {
 a:hover,
 a:active {
 	color: var(--color-pr);
+}
+
+@media (max-width: 768px) {
+	.content {
+		width: 90%;
+	}
+  
+	body {
+		font-size: 16px;
+	}
 }
