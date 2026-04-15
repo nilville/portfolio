@@ -1,27 +1,21 @@
-let darkmode = localStorage.getItem('darkmode')
 const themeSwitcher = document.getElementById('theme-switcher')
 
-function enableDarkmode() {
-	document.body.classList.add('darkmode')
-	localStorage.setItem('darkmode', 'active')
+// Theme Management
+const toggleTheme = (isLight) => {
+	document.body.classList.toggle('light-theme', isLight)
+	localStorage.setItem('terminal_theme', isLight ? 'light' : 'dark')
 }
 
-function disableDarkmode() {
-	document.body.classList.remove('darkmode')
-	localStorage.setItem('darkmode', null)
-}
+// Initialize Theme
+const savedTheme = localStorage.getItem('terminal_theme')
+if (savedTheme === 'light') toggleTheme(true)
 
-if (darkmode === 'active') enableDarkmode()
-
-themeSwitcher.addEventListener('click', function() {
-	let darkmode = localStorage.getItem('darkmode')
-	if (darkmode !== 'active') {
-		enableDarkmode()
-	} else {
-		disableDarkmode()
-	}
+themeSwitcher.addEventListener('click', () => {
+	const isCurrentlyLight = document.body.classList.contains('light-theme')
+	toggleTheme(!isCurrentlyLight)
 })
 
+// Form Handling with Terminal Feedback
 const contactForm = document.getElementById('contact-form')
 
 contactForm.addEventListener('submit', function(e) {
@@ -32,19 +26,23 @@ contactForm.addEventListener('submit', function(e) {
 	const body = document.getElementById('body').value
 	
 	if (!email || !subject || !body) {
-		alert('Please fill in all fields')
+		console.error('CRITICAL_ERROR: Missing required payloads')
 		return
 	}
 	
 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 	if (!emailRegex.test(email)) {
-		alert('Please enter a valid email address')
+		alert('ERROR: Invalid protocol in email address')
 		return
 	}
 	
-	console.log('Form submitted:', { email, subject, body })
+	// Simulated Terminal Output
+	console.log('INITIATING_CONNECTION...')
+	console.log(`HEADER: ${subject}`)
+	console.log('ENCRYPTING_PAYLOAD...')
+	console.log('TRANSMISSION_SUCCESSFUL')
 	
-	alert('Message sent successfully! (Note: This is a demo. Configure backend to actually send emails)')
+	alert('>>> MSG_SENT: Connection established. (Demo mode active)')
 	
 	contactForm.reset()
 })
