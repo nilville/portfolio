@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nilville.vercel.app/sitemap.xml

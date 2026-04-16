@@ -1,0 +1,9 @@
+{
+  "build": {
+    "command": "serve .",
+    "uses": ["node18"]
+  },
+  "start": {
+    "command": "serve ."
+  }
+}

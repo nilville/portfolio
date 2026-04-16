@@ -1,0 +1,15 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Terminal-style portfolio",
+  "main": "main.js",
+  "scripts": {
+    "start": "serve ."
+  },
+  "keywords": [],
+  "author": "Zaoui Inire",
+  "license": "ISC",
+  "devDependencies": {
+    "serve": "^14.2.4"
+  }
+}
