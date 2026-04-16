@@ -4,11 +4,15 @@
   "description": "Terminal-style portfolio",
   "main": "main.js",
   "scripts": {
-    "start": "serve ."
+    "start": "serve .",
+    "build": "echo 'Build successful'"
   },
   "keywords": [],
   "author": "Zaoui Inire",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.x"
+  },
   "devDependencies": {
     "serve": "^14.2.4"
   }
