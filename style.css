@@ -343,7 +343,7 @@ hr {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: transparent;
+    background: var(--bg-color);
     border: 1px solid var(--border-color);
     color: var(--text-main);
     width: 40px;
@@ -353,6 +353,15 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 10001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: var(--transition);
+}
+
+#theme-switcher:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
 }
 
 #theme-switcher svg { fill: currentColor; width: 18px; }
@@ -363,5 +372,10 @@ hr {
     h1 { font-size: 1.4rem; }
     .window-content { padding: 1rem; }
     .social-links { gap: 1rem; }
-    #theme-switcher { top: 10px; right: 10px; }
+    #theme-switcher { 
+        top: 15px; 
+        right: 15px; 
+        width: 36px;
+        height: 36px;
+    }
 }
