@@ -2,16 +2,16 @@
   "name": "portfolio",
   "version": "1.0.0",
   "description": "Terminal-style portfolio",
-  "main": "main.js",
+  "main": "public/main.js",
   "scripts": {
-    "start": "serve .",
+    "start": "serve public",
     "build": "echo 'Build successful'"
   },
   "keywords": [],
   "author": "Zaoui Inire",
   "license": "ISC",
   "engines": {
-    "node": ">=18.x"
+    "node": "22.x"
   },
   "devDependencies": {
     "serve": "^14.2.4"
