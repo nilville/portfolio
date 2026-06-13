@@ -9,7 +9,8 @@ A sleek, terminal-inspired personal portfolio showcasing the intersection of web
 This project serves as my digital identity, highlighting my journey as a **Full Stack Developer** and **Penetration Tester**. The UI is designed to mimic a terminal environment, complete with scanlines, monospace typography, and command-line metaphors.
 
 ### 🛠️ Core Features
-- **Dynamic Theme Engine:** Seamlessly switch between `Dark (System)` and `Light` modes with persistent local storage.
+
+- **Dark Terminal Interface:** A focused terminal-inspired UI with scanlines, monospace typography, and command-line metaphors.
 - **Retro CRT Aesthetic:** Custom scanline overlays and flickering cursor effects for an immersive experience.
 - **Responsive Terminal Windows:** Modular UI components that adapt to any screen size.
 - **Interactive Terminal Feedback:** Simulated transmission logs and status messages on form submission.
@@ -17,12 +18,12 @@ This project serves as my digital identity, highlighting my journey as a **Full 
 
 ## 🧰 Tech Stack
 
-| Category | Technologies |
-| :--- | :--- |
-| **Frontend** | HTML5, Vanilla CSS (Custom Properties), Vanilla JavaScript |
-| **Backend (Projects)** | Python, Flask, Django, PostgreSQL |
-| **Design** | JetBrains Mono, Font Awesome, CRT-style animations |
-| **Security** | Kali Linux, Bash Scripting, Automation |
+| Category               | Technologies                                               |
+| :--------------------- | :--------------------------------------------------------- |
+| **Frontend**           | HTML5, Vanilla CSS (Custom Properties), Vanilla JavaScript |
+| **Backend (Projects)** | Python, Flask, Django, PostgreSQL                          |
+| **Design**             | JetBrains Mono, Font Awesome, CRT-style animations         |
+| **Security**           | Kali Linux, Bash Scripting, Automation                     |
 
 ## 📂 Project Showcase
 
@@ -40,4 +41,5 @@ Find me across the digital landscape:
 - **LinkedIn:** [Inir Zaoui](https://www.linkedin.com/in/inir-zaoui-419216318/)
 
 ---
-*Built with 💚 and `0.1s` ping by Inir Zaoui.*
+
+_Built with 💚 and `0.1s` ping by Inir Zaoui._

@@ -1,164 +1,241 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Zaoui Inire" />
+    <meta
+      name="description"
+      content="Terminal-style portfolio for Inir Zaoui, web developer and cybersecurity enthusiast."
+    />
+    <title>nilville ~ /home</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="icon" href="img/faveicon.png" type="image/png" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="text/javascript" src="main.js" defer></script>
+  </head>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="author" content="Zaoui Inire">
-	<meta name="description" content="Terminal-style portfolio for Inir Zaoui, web developer and cybersecurity enthusiast.">
-	<title>nilville ~ /home</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-		integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="icon" href="img/faveicon.png" type="image/png">
-	<link rel="stylesheet" href="style.css">
-	<script type='text/javascript' src='main.js' defer></script>
-</head>
+  <body>
+    <div class="container">
+      <header>
+        <div id="user">nilville</div>
+      </header>
 
-<body>
-	<button id='theme-switcher' title="Toggle System Theme">
-		<svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.01c.39-.39.39-1.03 0-1.41s-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
-	</button>
+      <main>
+        <section class="terminal-window">
+          <div class="window-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="window-title">profile.sh</span>
+          </div>
+          <div class="window-content">
+            <section class="information">
+              <h1><span class="prompt">$</span>whoami</h1>
+              <p>Inir Zaoui. Full Stack Developer & Penetration Tester.</p>
+              <p>
+                University student based in Algeria. Specializing in secure web
+                ecosystems.
+              </p>
+            </section>
+            <hr />
+            <article class="about-me">
+              <p>
+                <span class="prompt">></span>I build robust, secure web
+                applications using Django and Flask. I focus on backend
+                architecture and secure-by-design principles.
+              </p>
+              <p>
+                <span class="prompt">></span>Active pentester with experience in
+                ethical hacking, scripting, and automation. Currently advancing
+                my skills toward OSCP certification.
+              </p>
+            </article>
+          </div>
+        </section>
 
-	<div class="container">
-		<header>
-			<div id='user'>nilville</div>
-		</header>
+        <section class="terminal-window">
+          <div class="window-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="window-title">projects.db</span>
+          </div>
+          <div class="window-content">
+            <h1><span class="prompt">$</span>ls ./repositories</h1>
+            <div class="project-grid">
+              <!-- Project 1: sa9t -->
+              <article class="project-card">
+                <div class="project-preview">
+                  <img src="img/1.png" alt="sa9t sports analytics" />
+                </div>
+                <div class="project-info">
+                  <h3>sa9t</h3>
+                  <p>
+                    A sports analytics platform providing professional football
+                    predictions and betting tips. Features a performance
+                    tracking dashboard with real-time success rates and curated
+                    accumulators for international leagues.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Vanilla CSS</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://web-production-4eed1.up.railway.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ LIVE_DEMO ]</a
+                    >
+                  </div>
+                </div>
+              </article>
 
-		<main>
-			<section class="terminal-window">
-				<div class="window-header">
-					<span class="dot red"></span>
-					<span class="dot yellow"></span>
-					<span class="dot green"></span>
-					<span class="window-title">profile.sh</span>
-				</div>
-				<div class="window-content">
-					<section class="information">
-						<h1><span class="prompt">$</span>whoami</h1>
-						<p>Inir Zaoui. Full Stack Developer & Penetration Tester.</p>
-						<p>University student based in Algeria. Specializing in secure web ecosystems.</p>
-					</section>
-					<hr>
-					<article class="about-me">
-						<p><span class="prompt">></span>I build robust, secure web applications using Django and Flask. I focus on backend architecture and secure-by-design principles.</p>
-						<p><span class="prompt">></span>Active pentester with experience in ethical hacking, scripting, and automation. Currently advancing my skills toward OSCP certification.</p>
-					</article>
-				</div>
-			</section>
+              <!-- Project 2: StreamFlix -->
+              <article class="project-card">
+                <div class="project-preview">
+                  <img src="img/2.png" alt="StreamFlix movie showcase" />
+                </div>
+                <div class="project-info">
+                  <h3>StreamFlix</h3>
+                  <p>
+                    A sleek streaming showcase built with Flask and TMDB API.
+                    Browse today's trending movies and TV series with a modern,
+                    responsive interface.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Tailwind</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://streamflix-inir.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ LIVE_DEMO ]</a
+                    >
+                  </div>
+                </div>
+              </article>
 
-			<section class="terminal-window">
-				<div class="window-header">
-					<span class="dot red"></span>
-					<span class="dot yellow"></span>
-					<span class="dot green"></span>
-					<span class="window-title">projects.db</span>
-				</div>
-				<div class="window-content">
-					<h1><span class="prompt">$</span>ls ./repositories</h1>
-					<div class="project-grid">
-						<!-- Project 1: sa9t -->
-						<article class="project-card">
-							<div class="project-preview">
-								<img src="img/1.png" alt="sa9t sports analytics">
-							</div>
-							<div class="project-info">
-								<h3>sa9t</h3>
-								<p>A sports analytics platform providing professional football predictions and betting tips. Features a performance tracking dashboard with real-time success rates and curated accumulators for international leagues.</p>
-								<div class="project-tech">
-									<span class="tech-tag">Flask</span>
-									<span class="tech-tag">Python</span>
-									<span class="tech-tag">PostgreSQL</span>
-									<span class="tech-tag">Vanilla CSS</span>
-								</div>
-								<div class="project-links">
-									<a href="https://web-production-4eed1.up.railway.app/" target="_blank" rel="noopener noreferrer">[ LIVE_DEMO ]</a>
-								</div>
-							</div>
-						</article>
+              <!-- Project 3: PolyPulse -->
+              <article class="project-card">
+                <div class="project-preview">
+                  <img src="img/3.png" alt="PolyPulse market scanner" />
+                </div>
+                <div class="project-info">
+                  <h3>PolyPulse</h3>
+                  <p>
+                    A high-performance Polymarket scanner built with Flask and
+                    Vanilla JS. It uses parallel API fetching to find
+                    high-confidence (>90%) bets across hundreds of markets
+                    instantly.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Vanilla CSS</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://polypulse-inir.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ LIVE_DEMO ]</a
+                    >
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
 
-						<!-- Project 2: StreamFlix -->
-						<article class="project-card">
-							<div class="project-preview">
-								<img src="img/2.png" alt="StreamFlix movie showcase">
-							</div>
-							<div class="project-info">
-								<h3>StreamFlix</h3>
-								<p>A sleek streaming showcase built with Flask and TMDB API. Browse today's trending movies and TV series with a modern, responsive interface.</p>
-								<div class="project-tech">
-									<span class="tech-tag">Flask</span>
-									<span class="tech-tag">Python</span>
-									<span class="tech-tag">Tailwind</span>
-								</div>
-								<div class="project-links">
-									<a href="https://streamflix-inir.vercel.app/" target="_blank" rel="noopener noreferrer">[ LIVE_DEMO ]</a>
-								</div>
-							</div>
-						</article>
+        <section class="terminal-window">
+          <div class="window-header">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="window-title">contact.cmd</span>
+          </div>
+          <div class="window-content">
+            <section class="contact-form-container">
+              <form id="contact-form" class="contact-form" method="POST">
+                <div class="form-group">
+                  <label for="email">[INPUT] email_address:</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="user@domain.com"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="subject">[INPUT] subject_header:</label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    required
+                    placeholder="re: inquiry"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="body">[INPUT] message_payload:</label>
+                  <textarea
+                    id="body"
+                    name="body"
+                    rows="6"
+                    required
+                    placeholder="-- system initialized --"
+                  ></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Execute Send</button>
+              </form>
+            </section>
+          </div>
+        </section>
+      </main>
 
-						<!-- Project 3: PolyPulse -->
-						<article class="project-card">
-							<div class="project-preview">
-								<img src="img/3.png" alt="PolyPulse market scanner">
-							</div>
-							<div class="project-info">
-								<h3>PolyPulse</h3>
-								<p>A high-performance Polymarket scanner built with Flask and Vanilla JS. It uses parallel API fetching to find high-confidence (>90%) bets across hundreds of markets instantly.</p>
-								<div class="project-tech">
-									<span class="tech-tag">Flask</span>
-									<span class="tech-tag">Python</span>
-									<span class="tech-tag">Vanilla CSS</span>
-								</div>
-								<div class="project-links">
-									<a href="https://polypulse-inir.vercel.app/" target="_blank" rel="noopener noreferrer">[ LIVE_DEMO ]</a>
-								</div>
-							</div>
-						</article>
-					</div>
-				</div>
-			</section>
-
-			<section class="terminal-window">
-				<div class="window-header">
-					<span class="dot red"></span>
-					<span class="dot yellow"></span>
-					<span class="dot green"></span>
-					<span class="window-title">contact.cmd</span>
-				</div>
-				<div class="window-content">
-					<section class="contact-form-container">
-						<form id="contact-form" class="contact-form" method="POST">
-							<div class="form-group">
-								<label for="email">[INPUT] email_address:</label>
-								<input type="email" id="email" name="email" required placeholder="user@domain.com">
-							</div>
-							<div class="form-group">
-								<label for="subject">[INPUT] subject_header:</label>
-								<input type="text" id="subject" name="subject" required placeholder="re: inquiry">
-							</div>
-							<div class="form-group">
-								<label for="body">[INPUT] message_payload:</label>
-								<textarea id="body" name="body" rows="6" required placeholder="-- system initialized --"></textarea>
-							</div>
-							<button type="submit" class="submit-btn">Execute Send</button>
-						</form>
-					</section>
-				</div>
-			</section>
-		</main>
-
-		<footer class="social-links">
-			<a class='icon' href='https://github.com/nilville' target="_blank" rel="noopener noreferrer" title="GitHub">
-				<i class="fa-brands fa-github"></i>
-			</a>
-			<a class='icon' href='https://x.com/mlsc87' target="_blank" rel="noopener noreferrer" title="X (Twitter)">
-				<i class="fa-brands fa-x-twitter"></i>
-			</a>
-			<a class='icon' href='https://www.linkedin.com/in/inir-zaoui-419216318/' target="_blank" rel="noopener noreferrer" title="LinkedIn">
-				<i class="fa-brands fa-linkedin-in"></i>
-			</a>
-		</footer>
-	</div>
-</body>
-
+      <footer class="social-links">
+        <a
+          class="icon"
+          href="https://github.com/nilville"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="GitHub"
+        >
+          <i class="fa-brands fa-github"></i>
+        </a>
+        <a
+          class="icon"
+          href="https://x.com/mlsc87"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="X (Twitter)"
+        >
+          <i class="fa-brands fa-x-twitter"></i>
+        </a>
+        <a
+          class="icon"
+          href="https://www.linkedin.com/in/inir-zaoui-419216318/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="LinkedIn"
+        >
+          <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+      </footer>
+    </div>
+  </body>
 </html>
