@@ -112,6 +112,9 @@ header {
   margin-bottom: 3rem;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #user {
@@ -458,5 +461,222 @@ hr {
   }
   .project-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Interactive Terminal Toggle Button */
+.shell-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.4rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: none;
+  outline: none;
+  letter-spacing: 0.05em;
+}
+
+.shell-toggle-btn:hover,
+.shell-toggle-btn:focus {
+  background: var(--accent);
+  color: var(--bg, #000);
+}
+
+.shell-toggle-btn:active {
+  opacity: 0.7;
+}
+
+/* Themes */
+body.theme-matrix {
+  --accent: #00ff9c;
+  --accent-glow: rgba(0, 255, 156, 0.2);
+  --text-main: #a3ffd6;
+  --text-dim: #00aa66;
+  --border-color: #005533;
+}
+body.theme-amber {
+  --accent: #ffb000;
+  --accent-glow: rgba(255, 176, 0, 0.2);
+  --text-main: #ffe3a3;
+  --text-dim: #bb8200;
+  --border-color: #553b00;
+}
+body.theme-dracula {
+  --accent: #bd93f9;
+  --accent-glow: rgba(189, 147, 249, 0.2);
+  --text-main: #f8f8f2;
+  --text-dim: #6272a4;
+  --border-color: #44475a;
+}
+body.theme-cyberpunk {
+  --accent: #ff79c6;
+  --accent-glow: rgba(255, 121, 198, 0.2);
+  --text-main: #8be9fd;
+  --text-dim: #f1fa8c;
+  --border-color: #bd93f9;
+}
+
+/* Interactive Terminal Modal Overlay */
+.terminal-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.terminal-modal.hidden {
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-window {
+  width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0; /* Override margin from general terminal-window class */
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.terminal-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.95);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) rgba(0, 0, 0, 0.3);
+}
+
+/* Custom scrollbar for terminal body */
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+.terminal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.terminal-output {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.terminal-output-line {
+  word-break: break-all;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.terminal-output-line.command-echo {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.terminal-output-line.system-info {
+  color: var(--text-dim);
+}
+
+.terminal-output-line.error-output {
+  color: var(--error);
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 0.75rem;
+}
+
+.terminal-input-line .prompt {
+  color: var(--accent);
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 0;
+}
+
+/* Close button pointer styling */
+.close-terminal {
+  cursor: pointer;
+}
+.close-terminal:hover {
+  filter: brightness(1.3);
+}
+
+/* ASCII table styling in CLI */
+.cli-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  margin: 0.5rem 0;
+}
+.cli-table th,
+.cli-table td {
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  text-align: left;
+}
+.cli-table th {
+  color: var(--accent);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 768px) {
+  .terminal-modal {
+    padding: 0.5rem;
+  }
+  .modal-window {
+    height: 90vh;
+  }
+  .shell-toggle-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
   }
 }

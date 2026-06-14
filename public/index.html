@@ -26,6 +26,9 @@
     <div class="container">
       <header>
         <div id="user">nilville</div>
+        <button id="shell-toggle" class="shell-toggle-btn">
+          [ RUN_INTERACTIVE_SHELL ]
+        </button>
       </header>
 
       <main>
@@ -250,6 +253,35 @@
           <i class="fa-brands fa-linkedin-in"></i>
         </a>
       </footer>
+    </div>
+
+    <!-- Interactive Terminal Modal -->
+    <div id="terminal-modal" class="terminal-modal hidden">
+      <div class="terminal-window modal-window">
+        <div class="window-header">
+          <span
+            class="dot red close-terminal"
+            id="close-terminal"
+            title="Close Shell"
+          ></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+          <span class="window-title">interactive_shell.sh</span>
+        </div>
+        <div class="window-content terminal-body" id="terminal-body">
+          <div class="terminal-output" id="terminal-output"></div>
+          <div class="terminal-input-line">
+            <span class="prompt">guest@nilville:~$</span>
+            <input
+              type="text"
+              id="terminal-input"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Type 'help'..."
+            />
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
