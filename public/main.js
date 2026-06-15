@@ -18,7 +18,10 @@
   resize();
   window.addEventListener("resize", resize);
 
-  const STAR_COUNT = 140;
+  const STAR_COUNT =
+    window.matchMedia && window.matchMedia("(max-width: 767px)").matches
+      ? 80
+      : 140;
   const DEPTH = 1000;
   const SPEED = 1.8;
   const WARP_THRESHOLD = 20;
@@ -587,11 +590,11 @@ if (contactForm) {
       : "default";
 
     const neofetchHTML = `
-<pre style="line-height: 1.2; font-size: 0.85rem; display: flex; gap: 2rem; align-items: center; margin: 0.5rem 0;">
-<code style="color: var(--accent); font-weight: bold;">  _  _ _ _    _  _ _ _    _    ____ 
+<div class="neofetch-output">
+<pre><code class="neofetch-logo">  _  _ _ _    _  _ _ _    _    ____ 
   |\\ | | |    |  | | |    |    |___ 
   | \\| | |___  \\/  | |___ |___ |___ </code>
-<code><span style="color: var(--accent); font-weight: bold;">guest@nilvilleOS</span>
+<code><span class="neofetch-host">guest@nilvilleOS</span>
 -----------------
 OS: nilvilleOS v1.0.0
 Base: Algeria (DZ)
@@ -602,6 +605,7 @@ Resolution: ${window.innerWidth}x${window.innerHeight}
 GitHub: <a href="https://github.com/nilville" target="_blank" style="color: var(--accent); text-decoration: underline;">github.com/nilville</a>
 LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_blank" style="color: var(--accent); text-decoration: underline;">Inir Zaoui</a></span></code>
 </pre>
+</div>
 `;
     print(neofetchHTML, "raw");
   }
