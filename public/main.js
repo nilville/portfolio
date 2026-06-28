@@ -508,6 +508,13 @@ if (contactForm) {
     );
     print("   Stack: Flask, Python, Vanilla CSS");
     print("   Link: https://polypulse-inir.vercel.app/");
+    print("");
+    print("4. Stratos");
+    print(
+      "   Description: Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
+    );
+    print("   Stack: Python, Flask, Vanilla CSS, Vanilla JS");
+    print("   Link: https://stratos-inir.vercel.app/");
     print("-----------------------------------------");
     print("Type 'open <project_name>' (e.g. 'open sa9t') to view active link.");
   }
@@ -516,7 +523,7 @@ if (contactForm) {
   function handleOpenCommand(args) {
     if (args.length === 0) {
       print(
-        "Usage: open <project_name> (e.g., 'open sa9t', 'open streamflix', 'open polypulse')",
+        "Usage: open <project_name> (e.g., 'open sa9t', 'open streamflix', 'open polypulse', 'open stratos')",
         "error-output",
       );
       return;
@@ -526,6 +533,7 @@ if (contactForm) {
       sa9t: "https://web-production-4eed1.up.railway.app/",
       streamflix: "https://streamflix-inir.vercel.app/",
       polypulse: "https://polypulse-inir.vercel.app/",
+      stratos: "https://stratos-inir.vercel.app/",
     };
 
     if (urls[target]) {
@@ -533,7 +541,7 @@ if (contactForm) {
       window.open(urls[target], "_blank");
     } else {
       print(
-        `Unknown repository target: ${target}. Options: sa9t, streamflix, polypulse`,
+        `Unknown repository target: ${target}. Options: sa9t, streamflix, polypulse, stratos`,
         "error-output",
       );
     }
