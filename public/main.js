@@ -50,10 +50,13 @@
   }
 
   function scheduleWarp() {
-    return setTimeout(() => {
-      triggerWarp();
-      warpTimer = scheduleWarp();
-    }, 8000 + Math.random() * 3000);
+    return setTimeout(
+      () => {
+        triggerWarp();
+        warpTimer = scheduleWarp();
+      },
+      8000 + Math.random() * 3000,
+    );
   }
   let warpTimer = scheduleWarp();
 
@@ -78,7 +81,8 @@
           g: parseInt(result[2], 16),
           b: parseInt(result[3], 16),
         }
-      : (console.warn("hexToRgb: invalid accent color:", hex), { r: 242, g: 242, b: 242 });
+      : (console.warn("hexToRgb: invalid accent color:", hex),
+        { r: 242, g: 242, b: 242 });
   }
 
   function updateColorIfNeeded() {
@@ -364,13 +368,15 @@ if (contactForm) {
     },
     {
       name: "PolyPulse",
-      description: "High-performance parallel scanning client for Polymarket pools.",
+      description:
+        "High-performance parallel scanning client for Polymarket pools.",
       stack: "Flask, Python, Vanilla CSS",
       url: "https://polypulse-inir.vercel.app/",
     },
     {
       name: "Stratos",
-      description: "Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
+      description:
+        "Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
       stack: "Python, Flask, Vanilla CSS, Vanilla JS",
       url: "https://stratos-inir.vercel.app/",
     },
@@ -395,6 +401,11 @@ if (contactForm) {
 
   shellToggle.addEventListener("click", openShell);
   closeTerminal.addEventListener("click", closeShell);
+  modal.addEventListener("click", function (e) {
+    if (e.target === modal) {
+      closeShell();
+    }
+  });
 
   // Close with Esc, Toggle with Backtick
   window.addEventListener("keydown", function (e) {
@@ -830,10 +841,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
           contactPayload = { email: "", subject: "", body: "" };
         })
         .catch((error) => {
-          print(
-            "TRANSMISSION FAILED. ERROR: " + error.message,
-            "error-output",
-          );
+          print("TRANSMISSION FAILED. ERROR: " + error.message, "error-output");
           print("");
         });
     }, 2400);
