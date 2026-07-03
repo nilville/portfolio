@@ -8,6 +8,10 @@
       name="description"
       content="Terminal-style portfolio for Inir Zaoui, web developer and cybersecurity enthusiast."
     />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' https://cdnjs.cloudflare.com https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; script-src 'self'; connect-src https://formspree.io; img-src 'self' data:; frame-ancestors 'none'; form-action https://formspree.io;"
+    />
     <title>nilville ~ /home</title>
     <link
       rel="stylesheet"
@@ -90,7 +94,7 @@
               <!-- Project 1: sa9t -->
               <article class="project-card">
                 <div class="project-preview">
-                  <img src="img/1.png" alt="sa9t sports analytics" />
+                  <img src="img/1.png" alt="sa9t sports analytics" loading="lazy" />
                 </div>
                 <div class="project-info">
                   <h3>sa9t</h3>
@@ -120,7 +124,7 @@
               <!-- Project 2: StreamFlix -->
               <article class="project-card">
                 <div class="project-preview">
-                  <img src="img/2.png" alt="StreamFlix movie showcase" />
+                  <img src="img/2.png" alt="StreamFlix movie showcase" loading="lazy" />
                 </div>
                 <div class="project-info">
                   <h3>StreamFlix</h3>
@@ -148,7 +152,7 @@
               <!-- Project 3: PolyPulse -->
               <article class="project-card">
                 <div class="project-preview">
-                  <img src="img/3.png" alt="PolyPulse market scanner" />
+                  <img src="img/3.png" alt="PolyPulse market scanner" loading="lazy" />
                 </div>
                 <div class="project-info">
                   <h3>PolyPulse</h3>
@@ -177,7 +181,7 @@
               <!-- Project 4: Stratos -->
               <article class="project-card">
                 <div class="project-preview">
-                  <img src="img/4.png" alt="Stratos" />
+                  <img src="img/4.png" alt="Stratos" loading="lazy" />
                 </div>
                 <div class="project-info">
                   <h3>Stratos</h3>
@@ -215,7 +219,13 @@
           </div>
           <div class="window-content">
             <section class="contact-form-container">
-              <form id="contact-form" class="contact-form" method="POST">
+              <form
+                id="contact-form"
+                class="contact-form"
+                method="POST"
+                action="https://formspree.io/f/xeebplay"
+                accept-charset="UTF-8"
+              >
                 <div class="form-group">
                   <label for="email">[INPUT] email_address:</label>
                   <input
@@ -240,14 +250,24 @@
                   <label for="body">[INPUT] message_payload:</label>
                   <textarea
                     id="body"
-                    name="body"
+                    name="message"
                     rows="6"
                     required
                     placeholder="-- system initialized --"
                   ></textarea>
                 </div>
+                <input type="hidden" name="_subject" id="form-subject-hidden" />
+                <input type="hidden" name="_replyto" id="form-replyto-hidden" />
                 <button type="submit" class="submit-btn">Execute Send</button>
               </form>
+              <div
+                id="form-toast"
+                class="form-toast hidden"
+                role="status"
+                aria-live="polite"
+              >
+                <span id="form-toast-message"></span>
+              </div>
             </section>
           </div>
         </section>

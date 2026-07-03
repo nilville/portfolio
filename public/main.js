@@ -49,7 +49,21 @@
     }, 650);
   }
 
-  setInterval(triggerWarp, 8000 + Math.random() * 3000);
+  function scheduleWarp() {
+    return setTimeout(() => {
+      triggerWarp();
+      warpTimer = scheduleWarp();
+    }, 8000 + Math.random() * 3000);
+  }
+  let warpTimer = scheduleWarp();
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearTimeout(warpTimer);
+    } else {
+      warpTimer = scheduleWarp();
+    }
+  });
 
   let lastAccentHex = "";
   let r = 242,
@@ -64,7 +78,7 @@
           g: parseInt(result[2], 16),
           b: parseInt(result[3], 16),
         }
-      : { r: 242, g: 242, b: 242 };
+      : (console.warn("hexToRgb: invalid accent color:", hex), { r: 242, g: 242, b: 242 });
   }
 
   function updateColorIfNeeded() {
@@ -166,10 +180,41 @@
   requestAnimationFrame(starfield);
 })();
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+window.onerror = function (msg, url, line, col, err) {
+  console.error("GLOBAL_ERROR:", msg, "at", url, line + ":" + col);
+};
+window.onunhandledrejection = function (e) {
+  console.error("UNHANDLED_PROMISE_REJECTION:", e.reason);
+};
+
 // Form Handling with Terminal Feedback
 const contactForm = document.getElementById("contact-form");
+const formToast = document.getElementById("form-toast");
+const formToastMessage = document.getElementById("form-toast-message");
+let formToastTimeout = null;
+
+function showFormToast(type, message) {
+  if (!formToast || !formToastMessage) {
+    console.warn("Form toast container not found, falling back to alert.");
+    alert(message);
+    return;
+  }
+
+  clearTimeout(formToastTimeout);
+  formToastMessage.textContent = message;
+  formToast.classList.remove("hidden", "success", "error");
+  formToast.classList.add(type);
+
+  formToastTimeout = setTimeout(() => {
+    formToast.classList.add("hidden");
+  }, 4200);
+}
 
 if (contactForm) {
+  const submitBtn = contactForm.querySelector(".submit-btn");
+
   contactForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -182,29 +227,66 @@ if (contactForm) {
       return;
     }
 
-    const email = emailEl.value;
-    const subject = subjectEl.value;
-    const body = bodyEl.value;
+    const email = emailEl.value.trim();
+    const subject = subjectEl.value.trim();
+    const body = bodyEl.value.trim();
 
     if (!email || !subject || !body) {
-      alert("ERROR: All fields are required.");
+      showFormToast("error", "ERROR: All fields are required.");
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("ERROR: Invalid protocol in email address");
+    if (!EMAIL_REGEX.test(email)) {
+      showFormToast("error", "ERROR: Invalid email address.");
       return;
     }
 
-    console.log("INITIATING_CONNECTION...");
-    console.log(`HEADER: ${subject}`);
-    console.log("ENCRYPTING_PAYLOAD...");
-    console.log("TRANSMISSION_SUCCESSFUL");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "SENDING...";
+    }
 
-    alert(">>> MSG_SENT: Connection established. (Demo mode active)");
+    const formData = new FormData(contactForm);
+    formData.set("_subject", subject);
+    formData.set("_replyto", email);
 
-    contactForm.reset();
+    fetch(contactForm.action, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return response.json().then((data) => {
+          throw new Error(data.error || "Form submission failed");
+        });
+      })
+      .then(() => {
+        showFormToast(
+          "success",
+          "Message sent successfully. Check your inbox.",
+        );
+        contactForm.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Execute Send";
+        }
+      })
+      .catch((error) => {
+        console.error("FORM_SUBMISSION_ERROR:", error);
+        showFormToast(
+          "error",
+          "Unable to send message. Please try again later.",
+        );
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Execute Send";
+        }
+      });
   });
 }
 
@@ -240,7 +322,13 @@ if (contactForm) {
   }
 
   // Shell State
-  let history = JSON.parse(localStorage.getItem("nilville-history") || "[]");
+  let history = (() => {
+    try {
+      return JSON.parse(localStorage.getItem("nilville-history") || "[]");
+    } catch {
+      return [];
+    }
+  })();
   let historyIndex = -1;
   let shellState = "NORMAL"; // NORMAL, CONTACT_EMAIL, CONTACT_SUBJECT, CONTACT_MESSAGE
   let contactPayload = { email: "", subject: "", body: "" };
@@ -259,6 +347,33 @@ if (contactForm) {
     "clear",
     "exit",
     "open",
+  ];
+
+  const PROJECTS = [
+    {
+      name: "sa9t",
+      description: "Football predictions analytics with accuracy telemetry.",
+      stack: "Flask, Python, PostgreSQL, Vanilla CSS",
+      url: "https://web-production-4eed1.up.railway.app/",
+    },
+    {
+      name: "StreamFlix",
+      description: "Sleek TV showcase application integration using TMDB API.",
+      stack: "Flask, Python, Tailwind CSS",
+      url: "https://streamflix-inir.vercel.app/",
+    },
+    {
+      name: "PolyPulse",
+      description: "High-performance parallel scanning client for Polymarket pools.",
+      stack: "Flask, Python, Vanilla CSS",
+      url: "https://polypulse-inir.vercel.app/",
+    },
+    {
+      name: "Stratos",
+      description: "Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
+      stack: "Python, Flask, Vanilla CSS, Vanilla JS",
+      url: "https://stratos-inir.vercel.app/",
+    },
   ];
 
   // Toggle Shell
@@ -488,33 +603,13 @@ if (contactForm) {
   function printProjects() {
     print("ACTIVE REPOSITORIES:");
     print("-----------------------------------------");
-    print("1. sa9t");
-    print(
-      "   Description: Football predictions analytics with accuracy telemetry.",
-    );
-    print("   Stack: Flask, Python, PostgreSQL, Vanilla CSS");
-    print("   Link: https://web-production-4eed1.up.railway.app/");
-    print("");
-    print("2. StreamFlix");
-    print(
-      "   Description: Sleek TV showcase application integration using TMDB API.",
-    );
-    print("   Stack: Flask, Python, Tailwind CSS");
-    print("   Link: https://streamflix-inir.vercel.app/");
-    print("");
-    print("3. PolyPulse");
-    print(
-      "   Description: High-performance parallel scanning client for Polymarket pools.",
-    );
-    print("   Stack: Flask, Python, Vanilla CSS");
-    print("   Link: https://polypulse-inir.vercel.app/");
-    print("");
-    print("4. Stratos");
-    print(
-      "   Description: Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
-    );
-    print("   Stack: Python, Flask, Vanilla CSS, Vanilla JS");
-    print("   Link: https://stratos-inir.vercel.app/");
+    PROJECTS.forEach((p, i) => {
+      print(`${i + 1}. ${p.name}`);
+      print(`   Description: ${p.description}`);
+      print(`   Stack: ${p.stack}`);
+      print(`   Link: ${p.url}`);
+      print("");
+    });
     print("-----------------------------------------");
     print("Type 'open <project_name>' (e.g. 'open sa9t') to view active link.");
   }
@@ -529,19 +624,14 @@ if (contactForm) {
       return;
     }
     const target = args[0].toLowerCase();
-    const urls = {
-      sa9t: "https://web-production-4eed1.up.railway.app/",
-      streamflix: "https://streamflix-inir.vercel.app/",
-      polypulse: "https://polypulse-inir.vercel.app/",
-      stratos: "https://stratos-inir.vercel.app/",
-    };
+    const project = PROJECTS.find((p) => p.name.toLowerCase() === target);
 
-    if (urls[target]) {
-      print(`Opening ${target} live demo...`, "system-info");
-      window.open(urls[target], "_blank");
+    if (project) {
+      print(`Opening ${project.name} live demo...`, "system-info");
+      window.open(project.url, "_blank", "noopener,noreferrer");
     } else {
       print(
-        `Unknown repository target: ${target}. Options: sa9t, streamflix, polypulse, stratos`,
+        `Unknown repository target: ${target}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")}`,
         "error-output",
       );
     }
@@ -610,8 +700,8 @@ Shell: nil-sh v0.9 (ES6 Module)
 Uptime: ${uptimeStr}
 Active Theme: ${activeTheme}
 Resolution: ${window.innerWidth}x${window.innerHeight}
-GitHub: <a href="https://github.com/nilville" target="_blank" style="color: var(--accent); text-decoration: underline;">github.com/nilville</a>
-LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_blank" style="color: var(--accent); text-decoration: underline;">Inir Zaoui</a></span></code>
+GitHub: <a href="https://github.com/nilville" target="_blank" class="neofetch-link">github.com/nilville</a>
+LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_blank" class="neofetch-link">Inir Zaoui</a></span></code>
 </pre>
 </div>
 `;
@@ -639,8 +729,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
     }
 
     if (shellState === "CONTACT_EMAIL") {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!val || !emailRegex.test(val)) {
+      if (!val || !EMAIL_REGEX.test(val)) {
         print(
           "ERROR: Invalid email address payload. Try again:",
           "error-output",
@@ -706,35 +795,47 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
     }, 1800);
 
     setTimeout(() => {
-      print(
-        "TRANSMISSION SUCCESSFUL. RESPONSE STATUS CODE: 200 (OK)",
-        "system-info",
-      );
-      print(
-        `>>> MSG_SENT: Connection established. Hello from ${contactPayload.email}! (Demo mode active)`,
-        "system-info",
-      );
-      print("");
+      const formData = new FormData();
+      formData.append("email", contactPayload.email);
+      formData.append("subject", contactPayload.subject);
+      formData.append("message", contactPayload.body);
+      formData.append("_subject", contactPayload.subject);
+      formData.append("_replyto", contactPayload.email);
 
-      // Let's populate and submit the hidden/visible DOM contact form to keep original site functionality working!
-      const emailEl = document.getElementById("email");
-      const subjectEl = document.getElementById("subject");
-      const bodyEl = document.getElementById("body");
-      if (emailEl && subjectEl && bodyEl) {
-        emailEl.value = contactPayload.email;
-        subjectEl.value = contactPayload.subject;
-        bodyEl.value = contactPayload.body;
-        // Output to background console log as in original main.js
-        console.log("INITIATING_CONNECTION...");
-        console.log(`HEADER: ${contactPayload.subject}`);
-        console.log("ENCRYPTING_PAYLOAD...");
-        console.log("TRANSMISSION_SUCCESSFUL");
+      const endpoint = "https://formspree.io/f/xeebplay";
 
-        // Reset the form values
-        emailEl.value = "";
-        subjectEl.value = "";
-        bodyEl.value = "";
-      }
+      fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      })
+        .then((response) => {
+          if (!response.ok) {
+            return response.json().then((data) => {
+              throw new Error(data.error || "Form submission failed");
+            });
+          }
+          return response.json();
+        })
+        .then(() => {
+          print(
+            "TRANSMISSION SUCCESSFUL. RESPONSE STATUS CODE: 200 (OK)",
+            "system-info",
+          );
+          print(
+            `>>> MSG_SENT: Connection established. Hello from ${contactPayload.email}!`,
+            "system-info",
+          );
+          print("");
+          contactPayload = { email: "", subject: "", body: "" };
+        })
+        .catch((error) => {
+          print(
+            "TRANSMISSION FAILED. ERROR: " + error.message,
+            "error-output",
+          );
+          print("");
+        });
     }, 2400);
   }
 })();
