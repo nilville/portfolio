@@ -28,8 +28,13 @@
   <body>
     <div class="container">
       <header>
-        <div id="user">nilville</div>
-        <button id="shell-toggle" class="shell-toggle-btn">$ ./shell</button>
+        <div class="header-brand">
+          <div id="user">nilville</div>
+        </div>
+        <div class="header-controls">
+          <button id="theme-toggle" class="theme-toggle-btn">[ THEME: DEFAULT ]</button>
+          <button id="shell-toggle" class="shell-toggle-btn">$ ./shell</button>
+        </div>
       </header>
 
       <main>
@@ -75,6 +80,61 @@
                 <span class="tech-tag">PostgreSQL</span>
               </div>
             </section>
+            <section class="socials-section">
+              <p><span class="prompt">$</span>cat socials.txt</p>
+              <div class="social-cards-grid">
+                <a
+                  class="social-card"
+                  href="https://github.com/nilville"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile (@nilville)"
+                >
+                  <div class="social-card-icon">
+                    <i class="fa-brands fa-github"></i>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-card-title">GitHub</span>
+                    <span class="social-card-handle">@nilville</span>
+                  </div>
+                  <span class="social-card-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <a
+                  class="social-card"
+                  href="https://x.com/mlsc87"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="X (Twitter) Profile (@mlsc87)"
+                >
+                  <div class="social-card-icon">
+                    <i class="fa-brands fa-x-twitter"></i>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-card-title">X / Twitter</span>
+                    <span class="social-card-handle">@mlsc87</span>
+                  </div>
+                  <span class="social-card-arrow" aria-hidden="true">↗</span>
+                </a>
+
+                <a
+                  class="social-card"
+                  href="https://www.linkedin.com/in/inir-zaoui-419216318/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile (Inir Zaoui)"
+                >
+                  <div class="social-card-icon">
+                    <i class="fa-brands fa-linkedin-in"></i>
+                  </div>
+                  <div class="social-card-body">
+                    <span class="social-card-title">LinkedIn</span>
+                    <span class="social-card-handle">Inir Zaoui</span>
+                  </div>
+                  <span class="social-card-arrow" aria-hidden="true">↗</span>
+                </a>
+              </div>
+            </section>
           </div>
         </section>
 
@@ -118,6 +178,12 @@
                       rel="noopener noreferrer"
                       >[ LIVE_DEMO ]</a
                     >
+                    <a
+                      href="https://github.com/nilville/sa9t"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ REPOSITORY ]</a
+                    >
                   </div>
                 </div>
               </article>
@@ -149,6 +215,12 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       >[ LIVE_DEMO ]</a
+                    >
+                    <a
+                      href="https://github.com/nilville/StreamFlix"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ REPOSITORY ]</a
                     >
                   </div>
                 </div>
@@ -183,6 +255,12 @@
                       rel="noopener noreferrer"
                       >[ LIVE_DEMO ]</a
                     >
+                    <a
+                      href="https://github.com/nilville/polymarket"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ REPOSITORY ]</a
+                    >
                   </div>
                 </div>
               </article>
@@ -211,6 +289,12 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       >[ LIVE_DEMO ]</a
+                    >
+                    <a
+                      href="https://github.com/nilville/Stratos"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ REPOSITORY ]</a
                     >
                   </div>
                 </div>
@@ -282,34 +366,42 @@
         </section>
       </main>
 
-      <footer class="social-links">
-        <a
-          class="icon"
-          href="https://github.com/nilville"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="GitHub"
-        >
-          <i class="fa-brands fa-github"></i>
-        </a>
-        <a
-          class="icon"
-          href="https://x.com/mlsc87"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="X (Twitter)"
-        >
-          <i class="fa-brands fa-x-twitter"></i>
-        </a>
-        <a
-          class="icon"
-          href="https://www.linkedin.com/in/inir-zaoui-419216318/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="LinkedIn"
-        >
-          <i class="fa-brands fa-linkedin-in"></i>
-        </a>
+      <footer class="site-footer">
+        <div class="footer-status">
+          <span class="status-indicator">●</span> system online ~ /home/nilville
+        </div>
+        <div class="footer-socials">
+          <a
+            class="footer-social-link"
+            href="https://github.com/nilville"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="GitHub"
+            aria-label="GitHub"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a
+            class="footer-social-link"
+            href="https://x.com/mlsc87"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="X / Twitter"
+            aria-label="X / Twitter"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </a>
+          <a
+            class="footer-social-link"
+            href="https://www.linkedin.com/in/inir-zaoui-419216318/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="LinkedIn"
+            aria-label="LinkedIn"
+          >
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
       </footer>
     </div>
 

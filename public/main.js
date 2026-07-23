@@ -116,6 +116,7 @@ if (contactForm) {
   const terminalInput = document.getElementById("terminal-input");
   const terminalOutput = document.getElementById("terminal-output");
   const terminalBody = document.getElementById("terminal-body");
+  const promptLabel = document.querySelector(".terminal-input-line .prompt");
 
   if (
     !modal ||
@@ -128,15 +129,34 @@ if (contactForm) {
     return;
   }
 
-  // Load Saved Theme
-  const savedTheme = localStorage.getItem("nilville-theme");
-  if (savedTheme) {
+  const THEMES = ["default", "matrix", "amber", "dracula", "cyberpunk"];
+
+  // Theme cycler helper
+  function setTheme(themeName) {
     document.body.className = document.body.className
       .replace(/\btheme-\S+/g, "")
       .trim();
-    if (savedTheme !== "default") {
-      document.body.classList.add(savedTheme);
+    if (themeName !== "default") {
+      document.body.classList.add(`theme-${themeName}`);
+      localStorage.setItem("nilville-theme", `theme-${themeName}`);
+    } else {
+      localStorage.setItem("nilville-theme", "default");
     }
+
+    // Update theme toggle button text in header
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (themeToggleBtn) {
+      themeToggleBtn.textContent = `[ THEME: ${themeName.toUpperCase()} ]`;
+    }
+  }
+
+  // Load Saved Theme
+  const savedTheme = localStorage.getItem("nilville-theme");
+  if (savedTheme) {
+    const cleanTheme = savedTheme.replace("theme-", "");
+    setTheme(cleanTheme);
+  } else {
+    setTheme("default");
   }
 
   // Shell State
@@ -157,6 +177,7 @@ if (contactForm) {
   const COMMANDS = [
     "help",
     "whoami",
+    "socials",
     "skills",
     "projects",
     "theme",
@@ -173,12 +194,14 @@ if (contactForm) {
       description: "Football predictions analytics with accuracy telemetry.",
       stack: "Flask, Python, PostgreSQL, Vanilla CSS",
       url: "https://web-production-4eed1.up.railway.app/",
+      repo: "https://github.com/nilville/sa9t"
     },
     {
       name: "StreamFlix",
       description: "Sleek TV showcase application integration using TMDB API.",
       stack: "Flask, Python, Tailwind CSS",
       url: "https://streamflix-inir.vercel.app/",
+      repo: "https://github.com/nilville/StreamFlix"
     },
     {
       name: "PolyPulse",
@@ -186,6 +209,7 @@ if (contactForm) {
         "High-performance parallel scanning client for Polymarket pools.",
       stack: "Flask, Python, Vanilla CSS",
       url: "https://polypulse-inir.vercel.app/",
+      repo: "https://github.com/nilville/polymarket"
     },
     {
       name: "Stratos",
@@ -193,8 +217,23 @@ if (contactForm) {
         "Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
       stack: "Python, Flask, Vanilla CSS, Vanilla JS",
       url: "https://stratos-inir.vercel.app/",
+      repo: "https://github.com/nilville/Stratos"
     },
   ];
+
+  // Update input line prompt based on sub-shell wizard state
+  function updateInputPrompt() {
+    if (!promptLabel) return;
+    if (shellState === "CONTACT_EMAIL") {
+      promptLabel.textContent = "contact(email):~$";
+    } else if (shellState === "CONTACT_SUBJECT") {
+      promptLabel.textContent = "contact(subject):~$";
+    } else if (shellState === "CONTACT_MESSAGE") {
+      promptLabel.textContent = "contact(message):~$";
+    } else {
+      promptLabel.textContent = "guest@nilville:~$";
+    }
+  }
 
   // Toggle Shell
   function openShell() {
@@ -211,6 +250,7 @@ if (contactForm) {
   function closeShell() {
     modal.classList.add("hidden");
     shellState = "NORMAL";
+    updateInputPrompt();
   }
 
   shellToggle.addEventListener("click", openShell);
@@ -221,9 +261,31 @@ if (contactForm) {
     }
   });
 
-  // Close with Esc, Toggle with Backtick
+  // Graphical theme button cycling
+  const themeToggleBtn = document.getElementById("theme-toggle");
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener("click", function () {
+      const activeThemeMatch = document.body.className.match(/theme-\S+/);
+      const currentTheme = activeThemeMatch
+        ? activeThemeMatch[0].replace("theme-", "")
+        : "default";
+
+      const currentIndex = THEMES.indexOf(currentTheme);
+      const nextIndex = (currentIndex + 1) % THEMES.length;
+      const nextTheme = THEMES[nextIndex];
+
+      setTheme(nextTheme);
+    });
+  }
+
+  // Close with Esc, Toggle with Backtick (bypassing normal typing fields)
   window.addEventListener("keydown", function (e) {
     if (e.key === "`") {
+      if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+        if (e.target !== terminalInput) {
+          return;
+        }
+      }
       e.preventDefault();
       if (modal.classList.contains("hidden")) {
         openShell();
@@ -237,7 +299,6 @@ if (contactForm) {
 
   // Focus input on body click
   terminalBody.addEventListener("click", function (e) {
-    // If user is selecting text, do not force focus
     if (window.getSelection().toString() === "") {
       terminalInput.focus();
     }
@@ -274,6 +335,13 @@ if (contactForm) {
       terminalInput.value = "";
 
       if (shellState !== "NORMAL") {
+        // Echo input value with proper workflow sub-prompt
+        let currentPrompt = "guest@nilville:~$";
+        if (shellState === "CONTACT_EMAIL") currentPrompt = "contact(email):~$";
+        else if (shellState === "CONTACT_SUBJECT") currentPrompt = "contact(subject):~$";
+        else if (shellState === "CONTACT_MESSAGE") currentPrompt = "contact(message):~$";
+
+        print(`${currentPrompt} ${inputVal}`, "command-echo");
         handleContactWorkflow(inputVal);
         return;
       }
@@ -338,6 +406,10 @@ if (contactForm) {
       case "whoami":
         printWhoami();
         break;
+      case "socials":
+      case "social":
+        printSocials();
+        break;
       case "skills":
         printSkills();
         break;
@@ -383,9 +455,10 @@ if (contactForm) {
   </thead>
   <tbody>
     <tr><td>whoami</td><td>Developer background info</td></tr>
+    <tr><td>socials</td><td>View social profiles & GitHub links</td></tr>
     <tr><td>skills</td><td>Display technical skills indices</td></tr>
     <tr><td>projects</td><td>List repositories & live preview links</td></tr>
-    <tr><td>open &lt;name&gt;</td><td>Open project demo in a new tab</td></tr>
+    <tr><td>open &lt;name/idx&gt;</td><td>Open project demo (e.g. 'open sa9t' or 'open 1')</td></tr>
     <tr><td>theme &lt;name&gt;</td><td>Switch retro UI colors (e.g. 'theme amber')</td></tr>
     <tr><td>neofetch</td><td>Display host details & ASCII art logo</td></tr>
     <tr><td>contact</td><td>Trigger interactive contact prompt workflow</td></tr>
@@ -395,6 +468,16 @@ if (contactForm) {
 </table>
 `;
     print(helpText, "raw");
+  }
+
+  // Socials command
+  function printSocials() {
+    print("SOCIAL PROFILES & CHANNELS:");
+    print("-----------------------------------------");
+    print("  - GitHub:    https://github.com/nilville (@nilville)");
+    print("  - X/Twitter:  https://x.com/mlsc87 (@mlsc87)");
+    print("  - LinkedIn:   https://www.linkedin.com/in/inir-zaoui-419216318/ (Inir Zaoui)");
+    print("-----------------------------------------");
   }
 
   // Whoami command
@@ -432,31 +515,42 @@ if (contactForm) {
       print(`${i + 1}. ${p.name}`);
       print(`   Description: ${p.description}`);
       print(`   Stack: ${p.stack}`);
-      print(`   Link: ${p.url}`);
+      print(`   Demo: <a href="${p.url}" target="_blank" class="neofetch-link">${p.url}</a>`, "raw");
+      if (p.repo) {
+        print(`   Repo: <a href="${p.repo}" target="_blank" class="neofetch-link">${p.repo}</a>`, "raw");
+      }
       print("");
     });
     print("-----------------------------------------");
-    print("Type 'open <project_name>' (e.g. 'open sa9t') to view active link.");
+    print("Type 'open <project_name>' or 'open <number>' (e.g. 'open sa9t' or 'open 1') to view active link.");
   }
 
   // Open command
   function handleOpenCommand(args) {
     if (args.length === 0) {
       print(
-        "Usage: open <project_name> (e.g., 'open sa9t', 'open streamflix', 'open polypulse', 'open stratos')",
+        "Usage: open <project_name> or open <number> (e.g., 'open sa9t', 'open 1')",
         "error-output",
       );
       return;
     }
     const target = args[0].toLowerCase();
-    const project = PROJECTS.find((p) => p.name.toLowerCase() === target);
+
+    // Try matching by number index first
+    const targetIndex = parseInt(target, 10);
+    let project;
+    if (!isNaN(targetIndex) && targetIndex >= 1 && targetIndex <= PROJECTS.length) {
+      project = PROJECTS[targetIndex - 1];
+    } else {
+      project = PROJECTS.find((p) => p.name.toLowerCase() === target);
+    }
 
     if (project) {
       print(`Opening ${project.name} live demo...`, "system-info");
       window.open(project.url, "_blank", "noopener,noreferrer");
     } else {
       print(
-        `Unknown repository target: ${target}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")}`,
+        `Unknown repository target: ${target}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")} or 1-${PROJECTS.length}`,
         "error-output",
       );
     }
@@ -464,36 +558,26 @@ if (contactForm) {
 
   // Theme command
   function handleThemeCommand(args) {
-    const themes = ["default", "matrix", "amber", "dracula", "cyberpunk"];
     if (args.length === 0) {
-      print("Available themes: " + themes.join(", "), "system-info");
-      const active = document.body.className.match(/theme-\S+/);
-      print(
-        "Current Theme: " +
-          (active ? active[0].replace("theme-", "") : "default"),
-        "system-info",
-      );
+      print("Available themes: " + THEMES.join(", "), "system-info");
+      const activeThemeMatch = document.body.className.match(/theme-\S+/);
+      const currentTheme = activeThemeMatch
+        ? activeThemeMatch[0].replace("theme-", "")
+        : "default";
+      print("Current Theme: " + currentTheme, "system-info");
       return;
     }
 
     const newTheme = args[0].toLowerCase();
-    if (!themes.includes(newTheme)) {
+    if (!THEMES.includes(newTheme)) {
       print(
-        `Theme '${newTheme}' not recognized. Options: ` + themes.join(", "),
+        `Theme '${newTheme}' not recognized. Options: ` + THEMES.join(", "),
         "error-output",
       );
       return;
     }
 
-    document.body.className = document.body.className
-      .replace(/\btheme-\S+/g, "")
-      .trim();
-    if (newTheme !== "default") {
-      document.body.classList.add(`theme-${newTheme}`);
-      localStorage.setItem("nilville-theme", `theme-${newTheme}`);
-    } else {
-      localStorage.setItem("nilville-theme", "default");
-    }
+    setTheme(newTheme);
     print(
       `System theme swapped to: ${newTheme}. CRT adjustments initialized.`,
       "system-info",
@@ -526,7 +610,9 @@ Uptime: ${uptimeStr}
 Active Theme: ${activeTheme}
 Resolution: ${window.innerWidth}x${window.innerHeight}
 GitHub: <a href="https://github.com/nilville" target="_blank" class="neofetch-link">github.com/nilville</a>
-LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_blank" class="neofetch-link">Inir Zaoui</a></span></code>
+LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_blank" class="neofetch-link">Inir Zaoui</a>
+
+Palette: <span class="color-red">██</span><span class="color-green">██</span><span class="color-yellow">██</span><span class="color-blue">██</span><span class="color-purple">██</span><span class="color-pink">██</span><span class="color-white">██</span></code>
 </pre>
 </div>
 `;
@@ -536,6 +622,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
   // Contact workflow
   function startContactWorkflow() {
     shellState = "CONTACT_EMAIL";
+    updateInputPrompt();
     print(
       "Starting secure terminal messaging wizard. Type 'abort' to cancel.",
       "system-info",
@@ -548,6 +635,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
     const val = input.trim();
     if (val.toLowerCase() === "abort") {
       shellState = "NORMAL";
+      updateInputPrompt();
       print("Messaging workflow aborted.", "system-info");
       terminalInput.placeholder = "Type 'help'...";
       return;
@@ -563,6 +651,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
       }
       contactPayload.email = val;
       shellState = "CONTACT_SUBJECT";
+      updateInputPrompt();
       print(`[OK] email_address recorded: ${val}`, "system-info");
       print("[INPUT] subject_header:", "system-info");
       terminalInput.placeholder = "Enter message subject...";
@@ -576,6 +665,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
       }
       contactPayload.subject = val;
       shellState = "CONTACT_MESSAGE";
+      updateInputPrompt();
       print(`[OK] subject_header recorded: ${val}`, "system-info");
       print("[INPUT] message_payload:", "system-info");
       terminalInput.placeholder = "Enter message body...";
@@ -589,6 +679,7 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
       }
       contactPayload.body = val;
       shellState = "NORMAL";
+      updateInputPrompt();
       terminalInput.placeholder = "Type 'help'...";
 
       // Send payload
@@ -600,26 +691,49 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
     }
   }
 
+  function printProgress(percentage) {
+    const barWidth = 20;
+    const filledCount = Math.round((percentage / 100) * barWidth);
+    const emptyCount = barWidth - filledCount;
+    const bar = "█".repeat(filledCount) + "░".repeat(emptyCount);
+    return `[${bar}] ${percentage}%`;
+  }
+
   function simulateTransmission() {
     print("INITIATING SECURE SSH RELAY TUNNEL...", "system-info");
 
     setTimeout(() => {
       print("ESTABLISHING CONNECTION TO MAIL SERVER...", "system-info");
-    }, 400);
+    }, 300);
 
     setTimeout(() => {
       print("PERFORMING DIFFIE-HELLMAN KEY EXCHANGE...", "system-info");
-    }, 850);
+    }, 600);
 
     setTimeout(() => {
       print("ENCRYPTING PAYLOAD WITH AES-256-GCM...", "system-info");
-    }, 1300);
+    }, 900);
 
     setTimeout(() => {
-      print("TRANSMITTING ENCRYPTED TELEMETRY PACKETS...", "system-info");
-    }, 1800);
+      // Dynamic progress bar loading
+      const progressLine = document.createElement("div");
+      progressLine.className = "terminal-output-line system-info";
+      terminalOutput.appendChild(progressLine);
+      
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 10;
+        progressLine.textContent = `TRANSMITTING ENCRYPTED TELEMETRY PACKETS: ` + printProgress(progress);
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          sendMailPayload();
+        }
+      }, 100);
+    }, 1200);
 
-    setTimeout(() => {
+    function sendMailPayload() {
       const formData = new FormData();
       formData.append("email", contactPayload.email);
       formData.append("subject", contactPayload.subject);
@@ -658,6 +772,6 @@ LinkedIn: <a href="https://www.linkedin.com/in/inir-zaoui-419216318/" target="_b
           print("TRANSMISSION FAILED. ERROR: " + error.message, "error-output");
           print("");
         });
-    }, 2400);
+    }
   }
 })();
