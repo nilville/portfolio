@@ -1,20 +1,20 @@
-# 🖥️ nilville | Terminal Portfolio
+# 🖥️ nilville | Personal Portfolio
 
-A sleek, terminal-inspired personal portfolio showcasing the intersection of web development and cybersecurity. Built with a focus on performance, security, and a "hacker" aesthetic.
+A personal portfolio showcasing my work in web development and cybersecurity.
 
 ![Terminal UI Preview](img/4.png)
 
 ## 🚀 Overview
 
-This project serves as my digital identity, highlighting my journey as a **Full Stack Developer** and **Penetration Tester**. The UI is designed to mimic a terminal environment, complete with scanlines, monospace typography, and command-line metaphors.
+This repository houses my personal website, highlighting my projects as a **Full Stack Developer** and **Penetration Tester**. The UI is built around a terminal interface featuring custom scanlines, monospace typography, and an interactive CLI modal.
 
 ### 🛠️ Core Features
 
-- **Dark Terminal Interface:** A focused terminal-inspired UI with scanlines, monospace typography, and command-line metaphors.
-- **Retro CRT Aesthetic:** Custom scanline overlays and flickering cursor effects for an immersive experience.
-- **Responsive Terminal Windows:** Modular UI components that adapt to any screen size.
+- **Dark Terminal Interface:** A terminal-inspired UI with scanlines, monospace typography, and command-line metaphors.
+- **Retro CRT Aesthetic:** Custom scanline overlays and flickering cursor effects.
+- **Responsive Terminal Windows:** Modular UI components that adapt across screen sizes.
 - **Interactive Terminal Feedback:** Simulated transmission logs and status messages on form submission.
-- **Secure-by-Design:** Clean, optimized codebase focusing on modern web standards.
+- **Clean Implementation:** Vanilla HTML/CSS and JavaScript with light serverless form handling.
 
 ## 🧰 Tech Stack
 
@@ -29,9 +29,10 @@ This project serves as my digital identity, highlighting my journey as a **Full 
 
 My portfolio highlights several key repositories:
 
-- **sa9t:** A sports analytics platform using Flask and PostgreSQL for real-time football predictions.
-- **StreamFlix:** A modern movie/TV showcase powered by the TMDB API and Tailwind CSS.
-- **PolyPulse:** A high-performance Polymarket scanner utilizing parallel API fetching.
+- **sa9t:** A football analytics app built with Flask and PostgreSQL that tracks prediction win rates and match trends in real time.
+- **StreamFlix:** A responsive movie and TV discovery app powered by the TMDB API and Tailwind CSS.
+- **PolyPulse:** A Polymarket scanner built with Flask that queries hundreds of prediction markets concurrently for high-confidence odds.
+- **Stratos:** A match analysis engine that uses statistical modeling to compare team performance across European leagues.
 
 ## 📬 Connectivity
 

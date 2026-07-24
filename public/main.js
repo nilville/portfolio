@@ -191,14 +191,14 @@ if (contactForm) {
   const PROJECTS = [
     {
       name: "sa9t",
-      description: "Football predictions analytics with accuracy telemetry.",
+      description: "Football match analytics and prediction dashboard.",
       stack: "Flask, Python, PostgreSQL, Vanilla CSS",
       url: "https://web-production-4eed1.up.railway.app/",
       repo: "https://github.com/nilville/sa9t"
     },
     {
       name: "StreamFlix",
-      description: "Sleek TV showcase application integration using TMDB API.",
+      description: "Movie and TV discovery app powered by the TMDB API.",
       stack: "Flask, Python, Tailwind CSS",
       url: "https://streamflix-inir.vercel.app/",
       repo: "https://github.com/nilville/StreamFlix"
@@ -206,7 +206,7 @@ if (contactForm) {
     {
       name: "PolyPulse",
       description:
-        "High-performance parallel scanning client for Polymarket pools.",
+        "Fast Polymarket scanner using parallel API requests.",
       stack: "Flask, Python, Vanilla CSS",
       url: "https://polypulse-inir.vercel.app/",
       repo: "https://github.com/nilville/polymarket"
@@ -214,7 +214,7 @@ if (contactForm) {
     {
       name: "Stratos",
       description:
-        "Football match analysis & prediction platform using statistical models and AI to compare teams across top European leagues with betting insights.",
+        "European football match analysis engine using statistical modeling.",
       stack: "Python, Flask, Vanilla CSS, Vanilla JS",
       url: "https://stratos-inir.vercel.app/",
       repo: "https://github.com/nilville/Stratos"
@@ -486,10 +486,10 @@ if (contactForm) {
     print("Role: Full Stack Developer & Penetration Tester");
     print("Location: Algeria (DZ)");
     print(
-      "Bio: University student specializing in secure web ecosystems, currently studying backend engineering and security hardened deployments.",
+      "Bio: CS student based in Algeria, focusing on backend development and web application security.",
     );
     print(
-      "Mission: Creating robust backend systems with Django/Flask, and validating their protection with advanced ethical hacking methodologies.",
+      "Mission: Building clean web apps with Django and Flask, and testing their security through practical penetration testing.",
     );
   }
 
