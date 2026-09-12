@@ -219,6 +219,14 @@ if (contactForm) {
       url: "https://stratos-inir.vercel.app/",
       repo: "https://github.com/nilville/Stratos"
     },
+    {
+      name: "4chan-Media-Gallery",
+      description:
+        "Lightweight thread viewer and media browser for 4chan.",
+      stack: "React, Vite, JavaScript, Python, Flask, Vanilla CSS",
+      url: "https://4chan-media-gallery.vercel.app",
+      repo: "https://github.com/nilville/4chan-Media-Gallery"
+    },
   ];
 
   // Update input line prompt based on sub-shell wizard state
@@ -534,15 +542,24 @@ if (contactForm) {
       );
       return;
     }
-    const target = args[0].toLowerCase();
+    const rawTarget = args.join(" ").toLowerCase().trim();
+    const cleanTarget = rawTarget.replace(/[-_\s]/g, "");
 
     // Try matching by number index first
-    const targetIndex = parseInt(target, 10);
+    const targetIndex = parseInt(rawTarget, 10);
     let project;
     if (!isNaN(targetIndex) && targetIndex >= 1 && targetIndex <= PROJECTS.length) {
       project = PROJECTS[targetIndex - 1];
     } else {
-      project = PROJECTS.find((p) => p.name.toLowerCase() === target);
+      project = PROJECTS.find((p) => {
+        const pName = p.name.toLowerCase();
+        const pClean = pName.replace(/[-_\s]/g, "");
+        return (
+          pName === rawTarget ||
+          pClean === cleanTarget ||
+          (rawTarget === "4chan" && pClean.includes("4chan"))
+        );
+      });
     }
 
     if (project) {
@@ -550,7 +567,7 @@ if (contactForm) {
       window.open(project.url, "_blank", "noopener,noreferrer");
     } else {
       print(
-        `Unknown repository target: ${target}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")} or 1-${PROJECTS.length}`,
+        `Unknown repository target: ${rawTarget}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")} or 1-${PROJECTS.length}`,
         "error-output",
       );
     }
