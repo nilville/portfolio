@@ -1,3 +1,10 @@
+// Initialize Vercel Analytics queue
+window.va =
+  window.va ||
+  function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 window.onerror = function (msg, url, line, col, err) {
@@ -84,6 +91,7 @@ if (contactForm) {
         });
       })
       .then(() => {
+        window.va?.("event", { name: "contact_form_submit" });
         showFormToast(
           "success",
           "Message sent successfully. Check your inbox.",
@@ -774,6 +782,7 @@ Palette: <span class="color-red">██</span><span class="color-green">██</
           return response.json();
         })
         .then(() => {
+          window.va?.("event", { name: "terminal_contact_submit" });
           print(
             "TRANSMISSION SUCCESSFUL. RESPONSE STATUS CODE: 200 (OK)",
             "system-info",
