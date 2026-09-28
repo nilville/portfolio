@@ -116,6 +116,110 @@ if (contactForm) {
   });
 }
 
+// Daily Stack: click a tech tag to see which projects used it
+(function () {
+  const stackList = document.getElementById("stack-list");
+  const stackResult = document.getElementById("stack-result");
+  if (!stackList || !stackResult) return;
+
+  const tags = Array.from(stackList.querySelectorAll(".tech-tag"));
+  if (tags.length === 0) return;
+
+  const normalize = (text) => text.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+  // Project tags are read from the rendered cards, so the card markup stays
+  // the single source of truth and this lookup never needs updating by hand.
+  const cards = Array.from(document.querySelectorAll(".project-card")).map(
+    (el) => {
+      const heading = el.querySelector(".project-info h3");
+      return {
+        el: el,
+        name: heading ? heading.textContent.trim() : "Unnamed project",
+        tags: Array.from(el.querySelectorAll(".project-tech .tech-tag")).map(
+          (tag) => normalize(tag.textContent)
+        ),
+      };
+    }
+  );
+
+  function clearSelection() {
+    tags.forEach((tag) => tag.setAttribute("aria-pressed", "false"));
+    cards.forEach((card) => card.el.classList.remove("is-dimmed"));
+    // Emptied rather than hidden: a live region must stay in the a11y tree to
+    // be announced, so the element is cleared and never given display:none.
+    stackResult.textContent = "";
+  }
+
+  function renderResult(label, matches) {
+    stackResult.textContent = "";
+
+    const line = document.createElement("p");
+    const prompt = document.createElement("span");
+    prompt.className = "prompt";
+    prompt.textContent = ">";
+    line.appendChild(prompt);
+    line.appendChild(document.createTextNode(" " + label + " — "));
+
+    if (matches.length === 0) {
+      line.appendChild(
+        document.createTextNode("no project on this site uses it yet.")
+      );
+    } else {
+      const count = matches.length;
+      line.appendChild(
+        document.createTextNode(
+          "used in " + (count === 1 ? "1 project: " : count + " projects: ")
+        )
+      );
+      matches.forEach((match, i) => {
+        const name = document.createElement("span");
+        name.className = "stack-result-name";
+        name.textContent = match.name;
+        line.appendChild(name);
+        if (i < matches.length - 1) {
+          line.appendChild(document.createTextNode(", "));
+        }
+      });
+    }
+
+    stackResult.appendChild(line);
+  }
+
+  function select(tag) {
+    const key = normalize(tag.dataset.tech || tag.textContent);
+    const matches = cards.filter((card) => card.tags.indexOf(key) !== -1);
+
+    clearSelection();
+    tag.setAttribute("aria-pressed", "true");
+    // With no matches there is nothing to filter toward, so leave the grid
+    // untouched rather than dimming every card.
+    if (matches.length > 0) {
+      cards.forEach((card) => {
+        if (matches.indexOf(card) === -1) {
+          card.el.classList.add("is-dimmed");
+        }
+      });
+    }
+    renderResult(tag.dataset.tech || tag.textContent.trim(), matches);
+  }
+
+  stackList.addEventListener("click", function (e) {
+    const tag = e.target.closest(".tech-tag");
+    if (!tag) return;
+    if (tag.getAttribute("aria-pressed") === "true") {
+      clearSelection();
+    } else {
+      select(tag);
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (!stackResult.textContent) return;
+    clearSelection();
+  });
+})();
+
 // CLI & Terminal Shell Module
 (function () {
   const modal = document.getElementById("terminal-modal");
@@ -200,9 +304,7 @@ if (contactForm) {
     {
       name: "sa9t",
       description: "Football match analytics and prediction dashboard.",
-      stack: "Flask, Python, PostgreSQL, Vanilla CSS",
-      url: "https://web-production-4eed1.up.railway.app/",
-      repo: "https://github.com/nilville/sa9t"
+      stack: "Flask, Python, PostgreSQL, Vanilla CSS"
     },
     {
       name: "StreamFlix",
@@ -234,6 +336,18 @@ if (contactForm) {
       stack: "React, Vite, JavaScript, Python, Flask, Vanilla CSS",
       url: "https://4chan-media-gallery.vercel.app",
       repo: "https://github.com/nilville/4chan-Media-Gallery"
+    },
+    {
+      name: "Ziban-Dattes",
+      description: "E-commerce storefront for premium Deglet Nour dates from Biskra.",
+      stack: "Next.js, React, JavaScript, Tailwind CSS",
+      url: "https://zibannedattes.vercel.app/"
+    },
+    {
+      name: "Female-Sports-Center",
+      description: "Website for a women's sports center listing programs, services, and pricing.",
+      stack: "React, Vite, JavaScript, Tailwind CSS, Google Maps",
+      url: "https://female-sports-center-alger.vercel.app/"
     },
   ];
 
@@ -474,7 +588,7 @@ if (contactForm) {
     <tr><td>socials</td><td>View social profiles & GitHub links</td></tr>
     <tr><td>skills</td><td>Display technical skills indices</td></tr>
     <tr><td>projects</td><td>List repositories & live preview links</td></tr>
-    <tr><td>open &lt;name/idx&gt;</td><td>Open project demo (e.g. 'open sa9t' or 'open 1')</td></tr>
+    <tr><td>open &lt;name/idx&gt;</td><td>Open project demo (e.g. 'open stratos' or 'open 1')</td></tr>
     <tr><td>theme &lt;name&gt;</td><td>Switch retro UI colors (e.g. 'theme amber')</td></tr>
     <tr><td>neofetch</td><td>Display host details & ASCII art logo</td></tr>
     <tr><td>contact</td><td>Trigger interactive contact prompt workflow</td></tr>
@@ -531,21 +645,25 @@ if (contactForm) {
       print(`${i + 1}. ${p.name}`);
       print(`   Description: ${p.description}`);
       print(`   Stack: ${p.stack}`);
-      print(`   Demo: <a href="${p.url}" target="_blank" class="neofetch-link">${p.url}</a>`, "raw");
+      if (p.url) {
+        print(`   Demo: <a href="${p.url}" target="_blank" class="neofetch-link">${p.url}</a>`, "raw");
+      } else {
+        print("   Demo: not currently available", "system-info");
+      }
       if (p.repo) {
         print(`   Repo: <a href="${p.repo}" target="_blank" class="neofetch-link">${p.repo}</a>`, "raw");
       }
       print("");
     });
     print("-----------------------------------------");
-    print("Type 'open <project_name>' or 'open <number>' (e.g. 'open sa9t' or 'open 1') to view active link.");
+    print("Type 'open <project_name>' or 'open <number>' (e.g. 'open stratos' or 'open 1') to view active link.");
   }
 
   // Open command
   function handleOpenCommand(args) {
     if (args.length === 0) {
       print(
-        "Usage: open <project_name> or open <number> (e.g., 'open sa9t', 'open 1')",
+        "Usage: open <project_name> or open <number> (e.g., 'open stratos', 'open 1')",
         "error-output",
       );
       return;
@@ -553,10 +671,12 @@ if (contactForm) {
     const rawTarget = args.join(" ").toLowerCase().trim();
     const cleanTarget = rawTarget.replace(/[-_\s]/g, "");
 
-    // Try matching by number index first
+    // Try matching by number index first. The input must be entirely digits:
+    // parseInt("4chan", 10) is 4, which would otherwise hijack the name lookup.
+    const isIndexOnly = /^\d+$/.test(rawTarget);
     const targetIndex = parseInt(rawTarget, 10);
     let project;
-    if (!isNaN(targetIndex) && targetIndex >= 1 && targetIndex <= PROJECTS.length) {
+    if (isIndexOnly && targetIndex >= 1 && targetIndex <= PROJECTS.length) {
       project = PROJECTS[targetIndex - 1];
     } else {
       project = PROJECTS.find((p) => {
@@ -571,8 +691,15 @@ if (contactForm) {
     }
 
     if (project) {
-      print(`Opening ${project.name} live demo...`, "system-info");
-      window.open(project.url, "_blank", "noopener,noreferrer");
+      if (project.url) {
+        print(`Opening ${project.name} live demo...`, "system-info");
+        window.open(project.url, "_blank", "noopener,noreferrer");
+      } else {
+        print(
+          `${project.name} has no public live demo right now.`,
+          "error-output"
+        );
+      }
     } else {
       print(
         `Unknown repository target: ${rawTarget}. Options: ${PROJECTS.map((p) => p.name.toLowerCase()).join(", ")} or 1-${PROJECTS.length}`,

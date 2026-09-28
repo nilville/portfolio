@@ -735,6 +735,53 @@ body.theme-cyberpunk .form-toast.success {
   overflow-wrap: anywhere;
 }
 
+/* Daily Stack: clickable tech tags */
+.stack-list .tech-tag {
+  appearance: none;
+  background: none;
+  font-family: inherit;
+  line-height: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background-color 0.15s,
+    border-color 0.15s;
+}
+
+.stack-list .tech-tag:hover,
+.stack-list .tech-tag[aria-pressed="true"] {
+  color: var(--bg-color);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.stack-list .tech-tag:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.stack-result {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+/* The result is emptied rather than hidden so it stays a live region, which
+   means it must contribute no spacing while empty. */
+.stack-result:empty {
+  margin-top: 0;
+}
+
+.stack-result .stack-result-name {
+  color: var(--accent);
+}
+
+.project-card.is-dimmed {
+  opacity: 0.3;
+}
+
 .project-links {
   display: flex;
   gap: 1rem;

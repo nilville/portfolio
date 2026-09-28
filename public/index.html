@@ -66,15 +66,70 @@
             <section class="daily-stack">
               <p><span class="prompt">$</span>cat most-used.txt</p>
               <p>This is what I reach for most days:</p>
-              <div class="stack-list">
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">Tailwind</span>
-                <span class="tech-tag">React.js</span>
-                <span class="tech-tag">Django</span>
-                <span class="tech-tag">Flask</span>
-                <span class="tech-tag">Docker</span>
-                <span class="tech-tag">PostgreSQL</span>
+              <div class="stack-list" id="stack-list">
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="Python"
+                  aria-pressed="false"
+                >
+                  Python
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="Tailwind CSS"
+                  aria-pressed="false"
+                >
+                  Tailwind CSS
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="React"
+                  aria-pressed="false"
+                >
+                  React
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="Django"
+                  aria-pressed="false"
+                >
+                  Django
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="Flask"
+                  aria-pressed="false"
+                >
+                  Flask
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="Docker"
+                  aria-pressed="false"
+                >
+                  Docker
+                </button>
+                <button
+                  class="tech-tag"
+                  type="button"
+                  data-tech="PostgreSQL"
+                  aria-pressed="false"
+                >
+                  PostgreSQL
+                </button>
               </div>
+              <div
+                class="stack-result"
+                id="stack-result"
+                role="status"
+                aria-live="polite"
+              ></div>
             </section>
             <section class="socials-section">
               <p><span class="prompt">$</span>cat socials.txt</p>
@@ -164,20 +219,6 @@
                     <span class="tech-tag">PostgreSQL</span>
                     <span class="tech-tag">Vanilla CSS</span>
                   </div>
-                  <div class="project-links">
-                    <a
-                      href="https://web-production-4eed1.up.railway.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      >[ LIVE_DEMO ]</a
-                    >
-                    <a
-                      href="https://github.com/nilville/sa9t"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      >[ REPOSITORY ]</a
-                    >
-                  </div>
                 </div>
               </article>
 
@@ -198,7 +239,7 @@
                   <div class="project-tech">
                     <span class="tech-tag">Flask</span>
                     <span class="tech-tag">Python</span>
-                    <span class="tech-tag">Tailwind</span>
+                    <span class="tech-tag">Tailwind CSS</span>
                   </div>
                   <div class="project-links">
                     <a
@@ -320,6 +361,65 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       >[ REPOSITORY ]</a
+                    >
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 6: Ziban Dattes -->
+              <article class="project-card">
+                <div class="project-preview">
+                  <img src="img/6.png" alt="Ziban Dattes storefront" loading="lazy" />
+                </div>
+                <div class="project-info">
+                  <h3>Ziban Dattes</h3>
+                  <p>
+                    A storefront for premium Deglet Nour dates and other date products from Biskra. Product catalog with detail pages, WhatsApp ordering, cash on delivery, and shipping across Algeria.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">Next.js</span>
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://zibannedattes.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ LIVE_DEMO ]</a
+                    >
+                  </div>
+                </div>
+              </article>
+
+              <!-- Project 7: Female Sports Center -->
+              <article class="project-card">
+                <div class="project-preview">
+                  <img
+                    src="img/7.png"
+                    alt="Female Sports Center website"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="project-info">
+                  <h3>Female Sports Center</h3>
+                  <p>
+                    A site for a women's sports center in Ben Aknoun, listing programs, services, facilities, and pricing. Built around a map so visitors can check the location and plan a visit.
+                  </p>
+                  <div class="project-tech">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Vite</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                    <span class="tech-tag">Google Maps</span>
+                  </div>
+                  <div class="project-links">
+                    <a
+                      href="https://female-sports-center-alger.vercel.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >[ LIVE_DEMO ]</a
                     >
                   </div>
                 </div>

@@ -34,6 +34,8 @@ My portfolio highlights several key repositories:
 - **PolyPulse:** A Polymarket scanner built with Flask that queries hundreds of prediction markets concurrently for high-confidence odds.
 - **Stratos:** A match analysis engine that uses statistical modeling to compare team performance across European leagues.
 - **4chan Media Gallery:** A lightweight thread viewer and media browser that aggregates images, WebMs, and video files across 4chan boards into a clean gallery interface.
+- **Ziban Dattes:** A Next.js storefront selling Deglet Nour dates and other Biskra date products, ordering through WhatsApp with cash on delivery.
+- **Female Sports Center:** A React site presenting a women's sports center in Ben Aknoun, with program and pricing details plus an integrated map.
 
 ## 📬 Connectivity
 
